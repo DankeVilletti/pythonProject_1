@@ -3,6 +3,7 @@
 # (str) Title of your application
 title = Mobile App 001
 
+
 # (str) Package name
 package.name = mobileapp001
 
