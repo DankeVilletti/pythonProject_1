@@ -3,7 +3,6 @@
 # (str) Title of your application
 title = Mobile App 001
 
-
 # (str) Package name
 package.name = mobileapp001
 
@@ -29,7 +28,8 @@ source.dir = .
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 0.3
+version = 0.1
+
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
 # version.filename = %(source.dir)s/main.py
