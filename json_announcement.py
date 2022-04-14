@@ -1,33 +1,47 @@
 import json
 
 
-class parser_announcements:
-    def __init__(self, path: str):
-        self.path = path
-
-    def serialization(self, label: str, txt: str, path_img='priroda-reka-doma-krasnyj.jpg'):
-        pass
-
-    def deserialization(self):
-        pass
-
-
 class DataScience:
     def __init__(self):
-        self.level_one = dict()
-        self.level_two = dict()
-        self.level_three = {'active': dict(),
-                            'in_check': dict(),
-                            'inactive': dict()
-                            }
-        self.BG = {'level_one': self.level_one,
-                   'level_two': self.level_two,
-                   'level_three': self.level_three
+        try:
+            with open('BG.json', 'r') as f:
+                f = json.load(f)
+                self.level_one = f['level_one']
+                self.level_two = f['level_two']
+                self.level_three = f['level_three']
+                self.BG = {'level_one': self.level_one,
+                           'level_two': self.level_two,
+                           'level_three': self.level_three
+                           }
+        except:
+            self.level_one = dict()
+            self.level_two = dict()
+            self.level_three = {'active': dict(),
+                                'in_check': dict(),
+                                'inactive': dict()
+                                }
+            self.BG = {'level_one': self.level_one,
+                       'level_two': self.level_two,
+                       'level_three': self.level_three
+                       }
+            self.serialization()
 
-                   }
-        self.id = 0
-        self.phone_number = None
-        self.ad_id = 0
+        self.id = len(self.BG['level_one'])
+        self.ad_id = len(self.BG['level_three']['active']) + len(self.BG['level_three']['in_check']) + len(
+            self.BG['level_three']['inactive'])
+        self.level_three['in_check']['#'] = {'id': '#',
+                                                    'header': 'Greating',
+                                                    'description': "we're glad to see you",
+                                                    'price': '#',
+                                                    'phone_number': '#',
+                                                    'img_paths': ['img/car_default.png']
+
+                                                    }
+    def serialization(self):
+        with open('BG.json', 'w') as f:
+            data = self.BG
+            print(data)
+            json.dump(data, f)
 
     def default_registration_data_constructor(self, login: str, password: str, phone_number: str, user_name: str,
                                               location: str, sex: str):
@@ -41,25 +55,31 @@ class DataScience:
                           'location': location,
                           'sex': sex}
         }
+        self.default_private_data_constructor(id)
+        self.serialization()
 
     def identification(self, login: str, password: str):
-        if login in self.BG['level_one']:
-            if self.BG['level_one'][login]['password'] == password:
-                with open('my_personal_data.json', 'w') as f:
-                    data = self.BG['level_one'][login]
-                    data['login'] = login
-                    json.dump(data, f)
+        with open('BG.json', 'r') as f:
+            F = json.load(f)
+            if login in F['level_one']:
 
+                if F['level_one'][login]['password'] == password:
+                    with open('my_personal_data.json', 'w') as f:
+                        data = F['level_one'][login]
+                        data['login'] = login
+                        json.dump(data, f)
+
+                    return True
         return False
 
-    def default_private_data_constructor(self):
-        with open('my_personal_data.json', 'r') as f:
-            id = json.load(f)['ID']
+    def default_private_data_constructor(self,id):
+
         self.level_two[f'{id}'] = {
             'announcement': {'active': dict(),
                              'in_check': dict(),
                              'inactive': dict()}
         }
+
 
     def default_ad_builder(self, header: str, description: str, price: str, img_path: list):
         with open('my_personal_data.json', 'r') as f:
@@ -76,6 +96,7 @@ class DataScience:
 
                                                     }
         self.level_two[f'{id}']['announcement']['in_check'][f'{ad_id}'] = '#time'
+        self.serialization()
 
     def ad_status_change(self, to_instance: str, ad_id: str, from_instance='in_check'):
         with open('my_personal_data.json', 'r') as f:
@@ -85,6 +106,7 @@ class DataScience:
         del self.level_three[from_instance][ad_id]
         self.level_two[f'{id}']['announcement'][f'{to_instance}'][f'{ad_id}'] = '#time'
         del self.level_two[f'{id}']['announcement'][f'{from_instance}'][f'{ad_id}']
+        self.serialization()
 
     def get_id(self):
         self.id += 1

@@ -1,4 +1,4 @@
-#:import MagicBehavior kivymd.uix.behaviors.MagicBehavior
+
 MDScreen:
     id:signup
     name: 'sign_up'
@@ -38,7 +38,6 @@ MDScreen:
                         helper_text: "Введите ваше имя"
                         helper_text_mode:"on_focus"
                         hint_text:'First Name'
-                        required: True
 
                     MDTextField:
                         id:last_name
@@ -49,7 +48,6 @@ MDScreen:
                         helper_text: "Введите вашу фамилию"
                         helper_text_mode:"on_focus"
                         hint_text:'Last Name'
-                        required: True
 
                     MDIconButton:
                         id:dots_horizontal
@@ -59,8 +57,10 @@ MDScreen:
 
 
                         on_release:
+                            app.clear_text_fields_in_signup()
                             app.root.current = 'login'
                             app.root.transition.direction = 'right'
+
 
                     MDIconButton:
                         id:dots_horizontal
@@ -83,7 +83,6 @@ MDScreen:
                         helper_text: "Введите номер телефона"
                         helper_text_mode:"on_focus"
                         hint_text:'Number'
-                        required: True
 
                     MDTextField:
                         id:login
@@ -95,7 +94,6 @@ MDScreen:
                         helper_text: "Придумайте логин"
                         helper_text_mode:"on_focus"
                         hint_text:'Login'
-                        required: True
 
 
 
@@ -167,22 +165,29 @@ MDScreen:
                         pos_hint:{'center_y':0.35,'center_x':1}
                         font_size:sp(14)
                         color:rgba(178,178,178,255)
-                    MDRaisedButton:
-                        id:registration
-                        pos_hint:{'x':.15,'center_y':.15}
-                        text: "Сохранить"
-                        disabled:True
+    MDRaisedButton:
+        id:registration
+        pos_hint:{'x':.15,'center_y':.22}
+        text: "Сохранить"
+        disabled:True
+        md_bg_color:rgba(178,178,178,78/255)
+        on_release:
+            app.signup()
+            app.clear_text_fields_in_signup()
+            app.root.current = 'login'
+            app.root.transition.direction = 'right'
 
-                        on_release:
-                            app.signup()
+    MDFlatButton:
+        pos_hint:{'right':.85,'center_y':.22}
+        theme_text_color: "Custom"
+        text_color: rgba(0,207,255,255)
+        text: "Отмена"
+        on_release:
+            app.clear_text_fields_in_signup()
 
-                    MDFlatButton:
-                        pos_hint:{'right':.85,'center_y':.15}
-                        theme_text_color: "Custom"
-                        text_color: (60/255,136/255,123/255,.7)
-                        text: "Отмена"
-                        on_release:
-                            app.PRINT()
+
+            app.root.current = 'login'
+            app.root.transition.direction = 'right'
 
 
     MDLabel:
@@ -267,7 +272,6 @@ MDScreen:
         line_color_focus: rgba(20,20,20,255)
         helper_text: "Придумайте пароль"
         helper_text_mode:"on_focus"
-        required: True
 
     MDIconButton:
         icon: "eye-off"
