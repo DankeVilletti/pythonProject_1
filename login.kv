@@ -1,0 +1,70 @@
+MDScreen:
+    name: 'login'
+    md_bg_color:(47/255,0/255,29/255,1)
+    MDFloatLayout:
+        Image:
+
+            source:'img/BMW-M2-Coupe-2015-2560x1600-048 (1).jpg'
+            pos_hint:{'center_x':.7,'center_y':.5}
+            size_hint:3.3,1
+            allow_stretch: True
+            anim_delay: 0
+            # anim_loop: 1
+            anim_reset: True
+            canvas.after:
+                Color:
+                    rgba: 0,0,0,.3
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+        MDScreen:
+            size_hint:.95,.7
+            pos_hint:{'center_y':.5, 'center_x':.5}
+            canvas.after:
+                Color:
+                    rgba: 1,1,1,.15
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius:[24,]
+
+
+        MDLabel:
+            color:rgba(0,207,255,255)
+            pos_hint:{'center_y':.1}
+
+            text:"Property of Danke Vill'etti"
+            halign: "center"
+        Button:
+            text:"LOGIN"
+            size_hint:.66,.065
+            background_color:0,0,0,0
+            pos_hint:{'center_x':.5,'center_y':.48}
+            on_release:
+                app.root.current = 'initialize'
+                app.root.transition.direction = 'left'
+
+            canvas.before:
+                Color:
+                    rgb:rgba(0,207,255,255)
+                RoundedRectangle:
+                    size:self.size
+                    pos:self.pos
+                    radius:[5,]
+        Button:
+            text:"SIGNUP"
+            size_hint:.66,.065
+            background_color:0,0,0,0
+            pos_hint:{'center_x':.5,'center_y':.4}
+            on_release:
+                app.root.current = 'sign_up'
+                app.root.transition.direction = 'left'
+
+            canvas.before:
+                Color:
+                    rgb:rgba(0,207,255,255)
+                Line:
+                    width:1.2
+                    rounded_rectangle:self.x,self.y,self.width,self.height,5,5,5,5,100
+
+

@@ -1,0 +1,509 @@
+#:import Factory kivy.factory.Factory
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+#:import DataAnnouncement main
+
+
+
+<Definition>:
+    name:'1'
+    Button:
+        text: "Open manager"
+        icon: "folder"
+
+
+<Five>:
+    name:'Five'
+    id:general
+    orientation:'vertical'
+
+    InternalSlider:
+
+    ToolBar:
+
+
+
+
+
+<Welcome@MDScreen>:
+
+    name: "SplashScreen"
+    on_enter: root.ids.run.start()
+    MDBoxLayout:
+
+        MDFloatLayout:
+
+            BoxLayout:
+                pos_hint:{'center_y':.2, 'center_x':.5}
+                padding: "10dp"
+                size_hint_x: .7
+                MDProgressBar:
+                    color:(255/255,15/255,0/255,1)
+                    id: run
+                    orientation: "horizontal"
+                    type: "determinate"
+                    running_duration: 1
+                    catching_duration: 1
+
+
+<ConstructorAnnouncement@Screen>:
+    name:'constructor_announcement'
+    MDBoxLayout:
+        spacing:5
+        md_bg_color: (43/255,43/255,43/255,.05)
+        orientation:'vertical'
+        padding:0,0,0,5
+
+        MDBoxLayout:
+            size_hint:1,None
+            height:dp(60)
+            md_bg_color: (255/255,15/255,0/255,1)
+            FloatLayout:
+                MDLabel:
+                    pos_hint:{'center_x':.5,'center_y':.5}
+                    text:"Danke Vill'etti"
+                    font_size:sp(28)
+                    halign: "center"
+                BoxLayout:
+                    pos_hint:{'center_y':.2, 'center_x':.5}
+                    padding: "10dp"
+                    size_hint_x: .7
+
+
+        MDCard:
+            md_bg_color:1,1,1,.8
+            size_hint:1,.3
+            orientation:"vertical"
+            radius:20
+            padding:"10dp"
+            spacing: "10dp"
+            MDFloatLayout:
+
+                TextInput:
+                    pos_hint:{'center_y':0.5, 'center_x':.5}
+                    hint_text:"Заголовок вашего обьявления"
+                    font_size: '14sp'
+                    background_color:1,1,1,0
+                    foreground_color:0,0,0,1
+                    cursor_color:(255/255,15/255,0/255,1)
+                    cursor_width:'2sp'
+                    multiline: False
+                    id: header
+                MDFloatLayout:
+                    pos_hint:{'center_y':0.4, 'center_x':.5}
+                    size_hint_y:None
+                    height:dp(.5)
+                    md_bg_color:rgba(178,178,178,255)
+
+                #TextField --------------Замена на TextInput
+                #color_mode:'custom'
+                #line_color_normal:0,0,0,1
+                #line_color_focus: 0,0,0,1
+                #helper_text: "Заголовок вашего обьявления"
+                #helper_text_mode: "persistent"
+
+
+        MDCard:
+
+            md_bg_color:1,1,1,.8
+            orientation:"vertical"
+            radius:20
+            padding:"10dp"
+            spacing: "10dp"
+            MDGridLayout:
+
+
+
+
+                cols:3
+
+                spacing:5
+
+                Image:
+
+                    source:"img/None.png"
+                Image:
+
+                    source:"img/None.png"
+                Image:
+
+                    source:"img/None.png"
+                Image:
+
+                    source:"img/None.png"
+                Image:
+
+                    source:"img/None.png"
+                Image:
+
+                    source:"img/None.png"
+
+
+            MDRoundFlatIconButton:
+
+                icon: "android"
+                text: "Загрузить изображение"
+                pos_hint:{'center_x':.5,'center_y':.5}
+                line_color: (60/255,136/255,123/255,.7)
+                text_color: (60/255,136/255,123/255,.7)
+
+                theme_icon_color: "Custom"
+                icon_color: (60/255,136/255,123/255,.7)
+                on_release:
+                    app.root.children[-1].children[-1].children[-1].manager.transition.direction='left'
+                    app.root.children[-1].children[-1].children[-1].manager.transition.duration=.2
+                    app.root.children[-1].children[-1].current = 'Ego'
+                    app.on_touch(self)
+        MDCard:
+
+            md_bg_color:1,1,1,.8
+            orientation:"vertical"
+            radius:20
+            padding: '5dp'
+            spacing: "10dp"
+            MDFloatLayout:
+                size_hint_y:.8
+
+                TextInput:
+                    hint_text:"Описание"
+                    pos_hint:{'center_y':0.5, 'center_x':.5}
+                    font_size: '14sp'
+                    background_color:1,1,1,0
+                    foreground_color:0,0,0,1
+                    cursor_color:(255/255,15/255,0/255,1)
+                    cursor_width:'2sp'
+                    id:description
+                    multiline: True
+                MDFloatLayout:
+                    pos_hint:{'center_y':0.06, 'center_x':.5}
+                    size_hint_y:None
+                    height:dp(.5)
+                    md_bg_color:rgba(178,178,178,255)
+
+            MDFloatLayout:
+                size_hint_y:.2
+                TextInput:
+                    id:cost
+                    pos_hint:{'center_y':0.5, 'center_x':.5}
+                    hint_text:"Желаемая стоимость"
+                    font_size: '14sp'
+                    background_color:1,1,1,0
+                    foreground_color:0,0,0,1
+                    cursor_color:(255/255,15/255,0/255,1)
+                    cursor_width:'2sp'
+
+                    multiline: False
+                MDFloatLayout:
+                    pos_hint:{'center_y':0.35, 'center_x':.5}
+                    size_hint_y:None
+                    height:dp(.5)
+                    md_bg_color:rgba(178,178,178,255)
+
+
+        MDCard:
+            md_bg_color:1,1,1,.6
+            size_hint:1,.25
+            orientation:"horizontal"
+            radius:20
+
+            spacing: "10dp"
+
+
+            FloatLayout:
+                MDRaisedButton:
+                    pos_hint:{'center_x':.31,'center_y':.5}
+                    text: "Сохранить"
+
+                    md_bg_color: (60/255,136/255,123/255,.7)
+                    on_release:
+                        app.save_announcement(root.ids.header.text ,root.ids.description.text ,root.ids.cost.text)
+
+                MDFlatButton:
+                    pos_hint:{'center_x':.69,'center_y':.5}
+                    theme_text_color: "Custom"
+                    text_color: (60/255,136/255,123/255,.7)
+                    text: "Отмена"
+                    on_release:
+                        app.PRINT()
+
+
+
+
+
+
+<Ego>:
+    name:'Ego'
+    MDBoxLayout:
+        orientation: 'vertical'
+
+        MDToolbar:
+            title: "MDFileManager"
+            left_action_items: [['arrow-left', lambda x: app.back_constructor_announcement()]]
+            elevation: 10
+
+
+        MDFloatLayout:
+
+            MDRoundFlatIconButton:
+                text: "Open manager"
+                icon: "folder"
+                pos_hint: {'center_x': .5, 'center_y': .6}
+                on_release: app.root.children[-1].children[-1].children[-1].file_manager_open()
+
+
+
+
+
+<InternalSlider>:
+    id:internal_slider
+
+    Block:
+        id:block
+    Second:
+    Ego:
+    ConstructorAnnouncement:
+
+<Second>:
+
+    Button:
+        size_hint:None,None
+        size:50,50
+        pos_hint:{'x':0,'y':0}
+
+
+
+
+<Block>:
+
+    MDGridLayout:
+        cols:1
+        SearchBar:
+        RV:
+
+
+
+<SearchBar@MDScreen>:
+    size_hint:1,None
+    height:60
+    #md_bg_color:.98,.25,.0,1
+    md_bg_color: (255/255,15/255,0/255,1)
+
+
+    FloatLayout:
+        DotsHorizontal:
+
+        SearchStringWithButton:
+
+
+
+<SearchStringWithButton@MDBoxLayout>
+
+    size_hint:.8,1
+    pos_hint:{'right':1,'y':0}
+    radius: [18,24,24,18]
+    md_bg_color: 0,0,0,.25
+
+    MDRelativeLayout:
+        SearchString:
+            id:ss
+
+    MDIconButton:
+        id: search_field_button
+        pos_hint:{'right':1,'center_y':.5}
+
+        theme_text_color: "Custom"           ###
+        text_color: 1,1,1,.7            ###
+        icon:'magnify'
+        on_release:
+            app.rv_constructor(self)
+
+
+
+#print(root.ids.ss.text)
+<SearchString@MDTextField>:
+    font_size: '14sp'
+    pos:(15,0)
+    id: search_field
+    hint_text: 'Search'
+
+    #helper_text: "Search"
+    #helper_text_mode: "on_focus"
+    text_color:1,1,1,1
+
+    line_color_normal:0,0,0,.5
+    line_color_focus: 1,1,1,.7
+    size_hint: .9, 1
+
+    #on_text: root.set_list_md_icons(self.text, True)
+
+<RV>:
+
+    canvas.before:
+        Color:
+            rgba: (43/255,43/255,43/255,.05)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+
+    data: app.data                                                      ###
+
+    id: rv
+    key_viewclass: 'viewclass'
+    RecycleBoxLayout:
+
+        spacing:5
+        padding:0,5,0,5
+        default_size: None, dp(100)
+
+        default_size_hint: 1, None
+        size_hint_y: None
+        height: self.minimum_height
+        orientation: 'vertical'
+
+<Announcement>:
+
+    img:''
+    text:''
+
+    MDCard:
+        md_bg_color:1,1,1,.8
+
+        pos_hint:{'center_x':.5,'y':0}
+
+        orientation:"vertical"
+        radius:20
+        padding:"10dp"
+        TwoLineIconListItem:
+            text: root.text
+            secondary_text: "Wi-Fi . BlueTooth"
+
+
+
+            Image:
+                size_hint:.25,1
+                #source: id[1].id
+                source: root.img
+                pos_hint:{'x':0,'center_y':.5}
+
+
+<ToolBar@Screen+FakeRectangularElevationBehavior+MDFloatLayout>:
+
+    id:toolbar
+
+    #md_bg_color: .98,.25,.0,1
+    md_bg_color: (255/255,15/255,0/255,1)
+
+    #elevation: 5
+    size_hint:1,None
+    width:self.width
+    height:50
+
+
+    CarSports:
+        button_width: root.width/5
+
+    StarOutline:
+        button_width: root.width/4
+
+    PlusBoxMultipleOutline:
+        button_width: root.width/4
+
+    EmailMultipleOutline:
+        button_width: root.width/4
+
+    HomeVariantOutline:
+        button_width: root.width/5
+
+##############   BTN   #############
+
+<CarSports@On_active_button>:
+    #text: "Cars"
+    #text_size:sp(14)
+    id:car_sports
+    icon:'car-sports'
+    pos_hint:{'center_x':.1,'center_y':.5}
+
+
+    on_release:
+
+        app.root.children[-1].children[-1].children[-1].manager.transition.direction=app.root.children[-1].tr(app.root.children[-1].index_1)
+        app.root.children[-1].children[-1].children[-1].manager.transition.duration=.2
+        app.root.children[-1].children[-1].current = 'menu'
+
+
+
+<StarOutline@On_active_button>:
+    #text: "Home"
+    id:star_outline
+    icon:'star-outline'
+    pos_hint:{'center_x':.3,'center_y':.5}
+
+    on_release:
+        app.root.children[-1].children[-1].children[-1].manager.transition.direction=app.root.children[-1].tr(app.root.children[-1].index_2)
+        app.root.children[-1].children[-1].children[-1].manager.transition.duration=.2
+        app.root.children[-1].children[-1].current = 'btn'
+
+<PlusBoxMultipleOutline@On_active_button>:
+    #text: "Home"
+    id:plus_box_multiple_outline
+    icon:'plus-box-multiple-outline'
+    pos_hint:{'center_x':.5,'center_y':.5}
+
+    on_release:
+        app.root.children[-1].children[-1].children[-1].manager.transition.direction=app.root.children[-1].tr(app.root.children[-1].index_3)
+        app.root.children[-1].children[-1].children[-1].manager.transition.duration=.2
+        app.root.children[-1].children[-1].current = 'constructor_announcement'
+
+
+
+<EmailMultipleOutline@On_active_button>:
+    #text: "Home"
+    id:email_multiple_outline
+    icon:'email-multiple-outline'
+    pos_hint:{'center_x':.7,'center_y':.5}
+
+    on_release:
+        app.root.children[-1].children[-1].children[-1].manager.transition.direction=app.root.children[-1].tr(app.root.children[-1].index_4)
+        app.root.children[-1].children[-1].children[-1].manager.transition.duration=.2
+        app.root.children[-1].children[-1].current = 'menu'
+
+<HomeVariantOutline@On_active_button>:
+    #text: "Home"
+    id:home_variant_outline
+    icon:'home-variant-outline'
+    pos_hint:{'center_x':.9,'center_y':.5}
+
+    on_release:
+        app.root.children[-1].children[-1].children[-1].manager.transition.direction=app.root.children[-1].tr(app.root.children[-1].index_5)
+        app.root.children[-1].children[-1].children[-1].manager.transition.duration=.2
+        app.root.children[-1].children[-1].current = 'constructor_announcement'
+
+
+<DotsHorizontal@MDIconButton>
+    id:dots_horizontal
+    icon:'dots-horizontal'
+    pos_hint:{'x':0,'center_y':.5}
+
+
+
+    on_release:
+        app.root.children[-1].manager.transition.duration=.5
+        app.root.current = '1'
+
+<On_active_button>
+    icon_color:
+        app.theme_cls.text_color if not root.selected_item \
+        else (1, 1, 1, 1)
+    text_color:
+        app.theme_cls.text_color if not root.selected_item \
+        else (1, 1, 1, 1)
+    button_bg_color: 0,0,0,.2
+    mode: "color_on_normal"
+    badge_disabled: True
+
+<NavigationButton@Button_Item>
+    icon_color: app.theme_cls.text_color
+    text_color: app.theme_cls.text_color
+    button_bg_color: app.theme_cls.primary_color
+    mode: 'color_on_active'
+    badge_disabled: True
