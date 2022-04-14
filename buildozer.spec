@@ -30,7 +30,6 @@ source.dir = .
 
 # (str) Application versioning (method 1)
 version = 0.3
-
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
 # version.filename = %(source.dir)s/main.py
